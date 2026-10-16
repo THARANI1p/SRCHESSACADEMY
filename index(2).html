@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SR Chess Academy - Elite Competitive Chess Training</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #1f2937;
+      --accent: #d4af37;
+      --light: #f9fafb;
+      --border: #e5e7eb;
+      --text: #111827;
+      --text-light: #6b7280;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text);
+      background: #fff;
+      line-height: 1.6;
+    }
+
+    /* Header */
+    header {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+    }
+
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.95rem;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .cta-button {
+      background: var(--accent);
+      color: var(--primary);
+      padding: 0.7rem 1.5rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .cta-button:hover {
+      background: #c89c1f;
+      transform: translateY(-2px);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+      padding: 4rem 2rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .hero-content {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-left h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      margin-bottom: 2rem;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .hero-right {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-light);
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    /* Cards Grid */
+    .cards-section {
+      max-width: 1280px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2rem, 5vw, 2.5rem);
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .section-header p {
+      color: var(--text-light);
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 2rem;
+      transition: all 0.3s;
+    }
+
+    .card:hover {
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      transform: translateY(-4px);
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+      background: var(--light);
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
+      color: var(--primary);
+    }
+
+    .card p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Pricing Cards */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .price-card {
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 1.75rem;
+      text-align: center;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .price-card.featured {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.05) 0%, rgba(212, 175, 55, 0.02) 100%);
+      transform: scale(1.05);
+    }
+
+    .price-card.featured::before {
+      content: 'POPULAR';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: var(--primary);
+      padding: 0.4rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 0.25rem;
+    }
+
+    .price-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .price-card .price {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 0.5rem 0;
+    }
+
+    .price-card .duration {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .price-card p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .price-card .btn {
+      background: var(--primary);
+      color: white;
+      padding: 0.65rem 1.5rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      transition: all 0.3s;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .price-card.featured .btn {
+      background: var(--accent);
+      color: var(--primary);
+    }
+
+    .price-card .btn:hover {
+      opacity: 0.9;
+    }
+
+    /* Two Column Section */
+    .two-column {
+      max-width: 1280px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .two-column h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .two-column p {
+      color: var(--text-light);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      line-height: 1.8;
+    }
+
+    .badge-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+
+    .badge {
+      background: var(--light);
+      border: 1px solid var(--border);
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+
+    /* Form Section */
+    .form-section {
+      max-width: 1280px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+    }
+
+    .form-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .form-info h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .form-info p {
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+    }
+
+    .form-box {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+      font-size: 0.9rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-submit {
+      background: var(--accent);
+      color: var(--primary);
+      padding: 0.85rem 2rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      width: 100%;
+    }
+
+    .form-submit:hover {
+      background: #c89c1f;
+      transform: translateY(-2px);
+    }
+
+    .form-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Contact Section */
+    .contact-section {
+      background: var(--primary);
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+      margin: 4rem 0;
+    }
+
+    .contact-section h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: 2rem;
+    }
+
+    .contact-blocks {
+      max-width: 1280px;
+      margin: 2rem auto 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .contact-block {
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 0.75rem;
+      text-decoration: none;
+      color: white;
+      transition: all 0.3s;
+    }
+
+    .contact-block:hover {
+      background: rgba(212, 175, 55, 0.15);
+    }
+
+    .contact-block h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
+      color: var(--accent);
+    }
+
+    .contact-block p {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* FAQ */
+    .faq-section {
+      max-width: 1280px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+    }
+
+    .faq-item {
+      margin-bottom: 1rem;
+    }
+
+    .faq-button {
+      width: 100%;
+      padding: 1.25rem;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      text-align: left;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--primary);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s;
+    }
+
+    .faq-button:hover {
+      background: var(--light);
+    }
+
+    .faq-button.active {
+      background: var(--light);
+      border-color: var(--accent);
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 1.5rem;
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-top: none;
+      color: var(--text-light);
+      line-height: 1.8;
+    }
+
+    .faq-answer.show {
+      display: block;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary);
+      color: white;
+      padding: 3rem 2rem 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .footer-content {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-col h3 {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+
+    .footer-col a,
+    .footer-col p {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      margin-bottom: 0.5rem;
+      display: block;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+
+    .footer-col a:hover {
+      color: var(--accent);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 1.5rem;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.85rem;
+    }
+
+    /* Message Box */
+    .message {
+      display: none;
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      padding: 1.25rem 1.75rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      z-index: 1000;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    .message.success {
+      background: #10b981;
+      color: white;
+      display: block;
+    }
+
+    .message.error {
+      background: #ef4444;
+      color: white;
+      display: block;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-content,
+      .two-column,
+      .form-container,
+      .contact-blocks {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        gap: 1rem;
+        font-size: 0.85rem;
+      }
+
+      .hero-cta-group {
+        flex-direction: column;
+      }
+
+      .cta-button {
+        width: 100%;
+        text-align: center;
+      }
+
+      header {
+        padding: 0.75rem 1rem;
+      }
+
+      .cards-grid,
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .price-card.featured {
+        transform: scale(1);
+      }
+
+      .faq-section {
+        padding: 0 1rem;
+      }
+
+      .contact-section {
+        padding: 2rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <div class="logo">SR Chess Academy</div>
+      <nav>
+        <a href="#programs">Programs</a>
+        <a href="#coach">Coach</a>
+        <a href="#enquiry">Enquiry</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a href="#enquiry" class="cta-button">Get Started</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-left">
+        <span style="background: #fef3c7; color: #92400e; padding: 0.5rem 1rem; border-radius: 0.25rem; display: inline-block; font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">✓ National-Level Player · Strategic Thinker</span>
+        <h1>Master Chess. Master Thinking.</h1>
+        <p class="hero-subtitle">Elite competitive chess training grounded in national-level play and analytical rigor.</p>
+        <div class="hero-cta-group">
+          <a href="#enquiry" class="cta-button">Start Free Assessment</a>
+          <button class="cta-button" style="background: white; border: 1px solid var(--border); color: var(--text);">Learn More</button>
+        </div>
+        <div style="display: flex; gap: 2rem; font-size: 0.9rem; color: var(--text-light);">
+          <span>✓ Certified Coaches</span>
+          <span>✓ FIDE Methods</span>
+          <span>✓ Tournament Track Record</span>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div style="text-align: center;">
+          <p style="margin-bottom: 1rem;">🎯 Strategic Chess Board Visualization</p>
+          <p>Chess expertise visualized in a professional coaching environment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Credibility Cards -->
+  <section class="cards-section">
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon">👑</div>
+        <h3>National-Level Player</h3>
+        <p>Practical high-level competitive chess understanding forged through real tournament pressure and match experience.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">💻</div>
+        <h3>IT Professional</h3>
+        <p>Algorithmic logic, systematic problem solving, and structured execution applied directly to board evaluation.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧠</div>
+        <h3>Strategic Thinking</h3>
+        <p>Calculation depth, acute spatial awareness, and decisive decision-making refined move by deliberate move.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏆</div>
+        <h3>Structured Coaching</h3>
+        <p>Progressive level-wise roadmaps from core foundational rules to high-precision endgame and tournament play.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section class="cards-section">
+    <div class="section-header">
+      <h2>Build Skills That Go Beyond the Board</h2>
+      <p>Develop the thinking skills that make stronger chess players and sharper analytical thinkers.</p>
+    </div>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon">🎯</div>
+        <h3>Chess Fundamentals</h3>
+        <p>Master the geometry of the board, special moves, piece valuation, and tactical board etiquette.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🚀</div>
+        <h3>Opening Principles</h3>
+        <p>Center control, rapid development, early king safety, and avoiding deceptive opening traps.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <h3>Tactical Awareness</h3>
+        <p>Identify and execute forks, pins, skewers, discovered attacks, and double threats on demand.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎲</div>
+        <h3>Strategic Thinking</h3>
+        <p>Pawn structure formulation, creating weak outposts, open file exploitation, and piece synergy.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h3>Game Analysis</h3>
+        <p>Post-game diagnostic methodology to extract mistakes, missed opportunities, and technical blind spots.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏁</div>
+        <h3>Endgame Understanding</h3>
+        <p>Opposition, pawn promotion techniques, rook endgames, and converting slight advantages cleanly.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔢</div>
+        <h3>Calculation & Planning</h3>
+        <p>Deep candidate move evaluation trees, prophylactic visualization, and concrete threat calculation.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🥇</div>
+        <h3>Competitive Preparation</h3>
+        <p>Tournament clock time management, score-sheet recording, psychological resilience, and match focus.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programs / Pricing -->
+  <section id="programs" class="cards-section">
+    <div class="section-header">
+      <h2>Chess Coaching Programs</h2>
+      <p>Choose the program that matches your current level and goals.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <h3>Beginner</h3>
+        <div class="price">₹500</div>
+        <div class="duration">/ month</div>
+        <p>For students taking their first steps into chess. Master the board, piece movements, core rules, and fundamental objectives.</p>
+        <button class="btn">Enroll Now</button>
+      </div>
+
+      <div class="price-card">
+        <h3>Foundation</h3>
+        <div class="price">₹1,200</div>
+        <div class="duration">/ month</div>
+        <p>Build strong fundamentals and develop confidence on the board through standard opening principles and checkmate drills.</p>
+        <button class="btn">Enroll Now</button>
+      </div>
+
+      <div class="price-card featured">
+        <h3>Intermediate</h3>
+        <div class="price">₹2,000</div>
+        <div class="duration">/ month</div>
+        <p>Develop stronger tactical and strategic understanding. Deepen fork/pin patterns, piece coordination, and middlegame plans.</p>
+        <button class="btn">Enroll Now</button>
+      </div>
+
+      <div class="price-card">
+        <h3>Advanced</h3>
+        <div class="price">₹3,500</div>
+        <div class="duration">/ month</div>
+        <p>For players looking to take their chess skills to the next level. Rigorous candidate move calculation and sharp endgame technique.</p>
+        <button class="btn">Enroll Now</button>
+      </div>
+
+      <div class="price-card">
+        <h3>Champion Track</h3>
+        <div class="price">₹5,000</div>
+        <div class="duration">/ month</div>
+        <p>For serious players seeking advanced and competitive-focused training. Game repertoire review and tournament psychological prep.</p>
+        <button class="btn">Enroll Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Coach Section -->
+  <section id="coach" class="two-column">
+    <div>
+      <span style="color: var(--accent); font-weight: 600; font-size: 0.9rem;">MEET YOUR COACH</span>
+      <h2>Where Chess Meets Analytical Thinking</h2>
+      <p>An IT professional and national-level chess player bringing competitive chess experience and an analytical problem-solving mindset into structured chess coaching.</p>
+      <p>Chess is more than moving pieces. It develops calculation, patience, planning, concentration and decision-making — skills that extend far beyond the chessboard. With a pedagogy grounded in clarity and logic, our methodology helps students recognize patterns faster and evaluate critical positions with calm conviction.</p>
+      <div class="badge-group">
+        <div class="badge">🏆 National Player</div>
+        <div class="badge">💻 IT Professional</div>
+        <div class="badge">📚 Structured Methods</div>
+      </div>
+    </div>
+    <div style="background: white; border: 1px solid var(--border); border-radius: 1rem; padding: 2rem; min-height: 400px; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--text-light);">
+      <div>
+        <p style="margin-bottom: 1rem; font-size: 3rem;">👨‍🏫</p>
+        <p>Coach Portrait & Credentials</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who Can Join -->
+  <section class="cards-section">
+    <div class="section-header">
+      <h2>Find Your Starting Point</h2>
+    </div>
+    <div class="cards-grid">
+      <div class="card">
+        <h3>🎓 Beginners</h3>
+        <p>Never played chess before? Start with the fundamentals and learn the game step by step in an encouraging, structured environment.</p>
+        <p style="font-size: 0.85rem; color: var(--accent); margin-top: 1rem; font-weight: 600;">→ Start with Beginner Program</p>
+      </div>
+      <div class="card">
+        <h3>📈 Developing Players</h3>
+        <p>Already know chess? Strengthen tactics, strategy, calculation and game understanding to defeat club-level and casual opponents reliably.</p>
+        <p style="font-size: 0.85rem; color: var(--accent); margin-top: 1rem; font-weight: 600;">→ Foundation or Intermediate</p>
+      </div>
+      <div class="card">
+        <h3>🥇 Serious Players</h3>
+        <p>Looking to improve competitively? Develop a more structured approach to training, tournament preparation, and high-pressure game play.</p>
+        <p style="font-size: 0.85rem; color: var(--accent); margin-top: 1rem; font-weight: 600;">→ Advanced or Champion Track</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="cards-section">
+    <div class="section-header">
+      <h2>How It Works</h2>
+    </div>
+    <div class="cards-grid">
+      <div class="card">
+        <h3 style="font-size: 2rem; margin-bottom: 0.5rem;">01</h3>
+        <h4 style="margin-bottom: 0.75rem;">Choose Your Program</h4>
+        <p>Explore the coaching levels from ₹500 to ₹5,000/mo and select the tier that aligns with current proficiency.</p>
+      </div>
+      <div class="card">
+        <h3 style="font-size: 2rem; margin-bottom: 0.5rem;">02</h3>
+        <h4 style="margin-bottom: 0.75rem;">Send an Enquiry</h4>
+        <p>Contact the academy through the form below to initiate the conversation with the coach.</p>
+      </div>
+      <div class="card">
+        <h3 style="font-size: 2rem; margin-bottom: 0.5rem;">03</h3>
+        <h4 style="margin-bottom: 0.75rem;">Discuss Your Goals</h4>
+        <p>Share the student's experience, age, current level, schedule preference, and learning objectives.</p>
+      </div>
+      <div class="card">
+        <h3 style="font-size: 2rem; margin-bottom: 0.5rem;">04</h3>
+        <h4 style="margin-bottom: 0.75rem;">Start Training</h4>
+        <p>Join the appropriate coaching batch and begin your structured chess journey under national-level guidance.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enquiry Form -->
+  <section id="enquiry" class="form-section">
+    <div class="form-container">
+      <div class="form-info">
+        <h2>Ready to Make Your First Move?</h2>
+        <p>Tell us a little about the student and we'll help you find the right coaching program.</p>
+        
+        <div class="form-box" style="background: var(--light); margin-top: 2rem;">
+          <h4 style="margin-bottom: 1rem; color: var(--primary);">📱 Quick Contact</h4>
+          <p style="margin-bottom: 0.75rem; color: var(--text); font-weight: 600;">WhatsApp/Phone:</p>
+          <p style="margin-bottom: 1.5rem;"><a href="tel:+917338731109" style="color: var(--accent); text-decoration: none;">+91 73387 31109</a></p>
+          <p style="margin-bottom: 0.75rem; color: var(--text); font-weight: 600;">Email:</p>
+          <p><a href="mailto:coaching@srchessacademy.com" style="color: var(--accent); text-decoration: none;">coaching@srchessacademy.com</a></p>
+        </div>
+      </div>
+
+      <form id="enquiryForm" class="form-box" style="border: 2px solid var(--accent);">
+        <div class="form-group">
+          <label for="name">Name *</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone *</label>
+          <input type="tel" id="phone" name="phone" placeholder="+91 XXXXX XXXXX" required>
+        </div>
+
+        <button type="submit" class="form-submit" id="submitBtn">📮 Send Enquiry</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="section-header">
+      <h2>Frequently Asked Questions</h2>
+    </div>
+
+    <div style="max-width: 900px; margin: 0 auto;">
+      <div class="faq-item">
+        <button class="faq-button" onclick="toggleFaq(this)">
+          How old should my child be to start chess coaching?
+          <span>▼</span>
+        </button>
+        <div class="faq-answer">Students of all ages can start! We recommend beginners from age 5 onwards. Older students and adults can join our programs at any point in their chess journey.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-button" onclick="toggleFaq(this)">
+          What is the duration of the coaching program?
+          <span>▼</span>
+        </button>
+        <div class="faq-answer">Programs are month-to-month with flexible commitment. Most students find 4-6 months sufficient to see significant progress. You can continue as long as desired.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-button" onclick="toggleFaq(this)">
+          Are online sessions available?
+          <span>▼</span>
+        </button>
+        <div class="faq-answer">Yes! We offer both in-person and online coaching. Online sessions are conducted via video call with live board demonstrations.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-button" onclick="toggleFaq(this)">
+          What will my child learn in the Beginner Program?
+          <span>▼</span>
+        </button>
+        <div class="faq-answer">The Beginner Program covers chess rules, piece movements, basic tactics (forks, pins), checkmate patterns, and fundamental opening principles. It builds a strong foundation for future learning.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-button" onclick="toggleFaq(this)">
+          How often are classes held?
+          <span>▼</span>
+        </button>
+        <div class="faq-answer">We offer flexible scheduling. Most programs include 1-2 sessions per week. We work with families to find a schedule that suits their timetable.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-button" onclick="toggleFaq(this)">
+          Can I switch programs if my child progresses faster?
+          <span>▼</span>
+        </button>
+        <div class="faq-answer">Absolutely! We assess progress regularly and can move students to higher programs when they're ready. We believe in progression at the student's natural pace.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-button" onclick="toggleFaq(this)">
+          Do you offer tournament coaching?
+          <span>▼</span>
+        </button>
+        <div class="faq-answer">Yes! Our Advanced and Champion Track programs include specific tournament preparation, including psychological readiness, game analysis, and competitive strategy.</div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-button" onclick="toggleFaq(this)">
+          What is your refund policy?
+          <span>▼</span>
+        </button>
+        <div class="faq-answer">We offer a 7-day satisfaction guarantee for the first month. If you're not satisfied, we provide a full refund. After that, monthly plans can be paused or cancelled with 2 weeks notice.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact-section">
+    <h2>Get in Touch with the Academy</h2>
+    <div class="contact-blocks">
+      <a href="tel:+917338731109" class="contact-block">
+        <h3>📞 Phone</h3>
+        <p>Call us to speak directly with the coaching team.</p>
+        <p style="font-weight: 600; color: var(--accent);">+91 73387 31109</p>
+      </a>
+      <a href="https://wa.me/917338731109" class="contact-block">
+        <h3>💬 WhatsApp</h3>
+        <p>Send us a message anytime for quick responses.</p>
+        <p style="font-weight: 600; color: var(--accent);">Message Us</p>
+      </a>
+      <a href="mailto:coaching@srchessacademy.com" class="contact-block">
+        <h3>📧 Email</h3>
+        <p>Detailed enquiries and documentation.</p>
+        <p style="font-weight: 600; color: var(--accent);">coaching@srchessacademy.com</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-col">
+        <h3>SR Chess Academy</h3>
+        <p>Elite competitive chess training, masterclass pedagogy, and cognitive discipline engineered for future champions.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Programs</h3>
+        <a href="#programs">Beginner</a>
+        <a href="#programs">Foundation</a>
+        <a href="#programs">Intermediate</a>
+        <a href="#programs">Advanced</a>
+        <a href="#programs">Champion Track</a>
+      </div>
+      <div class="footer-col">
+        <h3>Academy</h3>
+        <a href="#coach">Meet the Coach</a>
+        <a href="#enquiry">Enquiry</a>
+        <a href="#">FAQs</a>
+        <a href="#">Schedule Assessment</a>
+      </div>
+      <div class="footer-col">
+        <h3>Contact</h3>
+        <a href="tel:+917338731109">+91 73387 31109</a>
+        <a href="mailto:coaching@srchessacademy.com">coaching@srchessacademy.com</a>
+        <p style="margin-top: 1rem;">Mon - Sat · 08:00 - 20:00 IST</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 SR Chess Academy. All rights reserved. | Crafted with ♟️ for chess excellence.</p>
+    </div>
+  </footer>
+
+  <!-- Success/Error Messages -->
+  <div id="successMsg" class="message success">✓ Enquiry submitted! We'll contact you soon.</div>
+  <div id="errorMsg" class="message error">⚠ Something went wrong. Please try again.</div>
+
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx5iaA2bEE_ksyHg_wu8_8Cd3uLNnCnV9MdIYLoiHR1GytrvlrCLqoEl5EYctU43YqN/exec";
+    const form = document.getElementById("enquiryForm");
+    const submitBtn = document.getElementById("submitBtn");
+    const successMsg = document.getElementById("successMsg");
+    const errorMsg = document.getElementById("errorMsg");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+
+      if (!name || !email || !phone) {
+        showError();
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending...";
+
+      const url = SCRIPT_URL + "?" + new URLSearchParams({
+        name: name,
+        email: email,
+        phone: phone
+      });
+
+      fetch(url, {
+        method: "GET",
+        mode: "no-cors"
+      })
+      .then(() => {
+        form.reset();
+        submitBtn.disabled = false;
+        submitBtn.textContent = "📮 Send Enquiry";
+        showSuccess();
+      })
+      .catch(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "📮 Send Enquiry";
+        showError();
+      });
+    });
+
+    function showSuccess() {
+      successMsg.style.display = "block";
+      setTimeout(() => {
+        successMsg.style.display = "none";
+      }, 4000);
+    }
+
+    function showError() {
+      errorMsg.style.display = "block";
+      setTimeout(() => {
+        errorMsg.style.display = "none";
+      }, 4000);
+    }
+
+    function toggleFaq(button) {
+      const answer = button.nextElementSibling;
+      const isOpen = answer.classList.contains("show");
+
+      document.querySelectorAll(".faq-answer").forEach(a => a.classList.remove("show"));
+      document.querySelectorAll(".faq-button").forEach(b => b.classList.remove("active"));
+
+      if (!isOpen) {
+        answer.classList.add("show");
+        button.classList.add("active");
+      }
+    }
+  </script>
+</body>
+</html>
